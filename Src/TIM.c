@@ -29,30 +29,31 @@
  **/
 void
 TIM1_Init(void) {
-	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
-	TIM_OCInitTypeDef TIM_OCInitStructure;
+    TIM_HandleTypeDef TIM_Handle;
+    TIM_OC_InitTypeDef TIM_OCInitStructure;
 
 	/* TIM1 clock enable */
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);
 
 	/* Time base configuration */
-	TIM_TimeBaseStructure.TIM_Period = 100-1;		// ~10 KHz
-	TIM_TimeBaseStructure.TIM_Prescaler = 48;		// 2 MHz
-	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
-	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
-	TIM_TimeBaseStructure.TIM_RepetitionCounter = 0;
+    TIM_Handle.Init.Period = 100-1;		// ~10 KHz
+    TIM_Handle.Init.Prescaler = 48;		// 2 MHz
+    TIM_Handle.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+    TIM_Handle.Init.CounterMode = TIM_COUNTERMODE_UP;
+    TIM_Handle.Init.RepetitionCounter = 0;
+    TIM_Handle.Instance = TIM1;
 
-	TIM_TimeBaseInit(TIM1, &TIM_TimeBaseStructure);
+    HAL_TIM_Base_Init(&TIM_Handle);
 
 	/* PWM1 Mode configuration: Channel1 */
-	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM2;
-	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Disable;
-	TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Enable;
-	TIM_OCInitStructure.TIM_Pulse = 0;
-	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_Low;
-	TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;
-	TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;
-	TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCIdleState_Set;
+    TIM_OCInitStructure.OCMode = TIM_OCMode_PWM2;
+    TIM_OCInitStructure.OutputState = TIM_OutputState_Disable;
+    TIM_OCInitStructure.OutputNState = TIM_OutputNState_Enable;
+    TIM_OCInitStructure.Pulse = 0;
+    TIM_OCInitStructure.OCPolarity = TIM_OCPolarity_Low;
+    TIM_OCInitStructure.OCNPolarity = TIM_OCNPolarity_High;
+    TIM_OCInitStructure.OCIdleState = TIM_OCIdleState_Reset;
+    TIM_OCInitStructure.OCNIdleState = TIM_OCIdleState_Set;
 
 	TIM_OC1Init(TIM1, &TIM_OCInitStructure);
 
