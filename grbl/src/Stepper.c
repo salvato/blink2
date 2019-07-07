@@ -244,7 +244,7 @@ Stepper_WakeUp(void) {
 	st.step_outbits = 0;
 
 	// Enable Stepper Driver Interrupt
-	TIM_Cmd(TIM9, ENABLE);
+    TIM_Cmd(TIM9, ENABLE);
 }
 
 
@@ -397,22 +397,22 @@ Stepper_MainISR(void) {
 			// Set the direction pins directly here to make sure that the signal is valid when stepping the steppers
 			// Some driver e.g. require a setup time of a few us.
 			if(st.dir_outbits & (1<<X_DIRECTION_BIT)) {
-				GPIO_SetBits(GPIO_DIR_X_PORT, GPIO_DIR_X_PIN);
+                HAL_GPIO_WritePin(GPIO_DIR_X_PORT, GPIO_DIR_X_PIN, GPIO_PIN_SET);
 			}
 			else {
-				GPIO_ResetBits(GPIO_DIR_X_PORT, GPIO_DIR_X_PIN);
+                HAL_GPIO_WritePin(GPIO_DIR_X_PORT, GPIO_DIR_X_PIN, GPIO_PIN_RESET);
 			}
 			if(st.dir_outbits & (1<<Y_DIRECTION_BIT)) {
-				GPIO_SetBits(GPIO_DIR_Y_PORT, GPIO_DIR_Y_PIN);
+                HAL_GPIO_WritePin(GPIO_DIR_Y_PORT, GPIO_DIR_Y_PIN, GPIO_PIN_SET);
 			}
 			else {
-				GPIO_ResetBits(GPIO_DIR_Y_PORT, GPIO_DIR_Y_PIN);
+                HAL_GPIO_WritePin(GPIO_DIR_Y_PORT, GPIO_DIR_Y_PIN, GPIO_PIN_RESET);
 			}
 			if(st.dir_outbits & (1<<Z_DIRECTION_BIT)) {
-				GPIO_SetBits(GPIO_DIR_Z_PORT, GPIO_DIR_Z_PIN);
+                HAL_GPIO_WritePin(GPIO_DIR_Z_PORT, GPIO_DIR_Z_PIN, GPIO_PIN_SET);
 			}
 			else {
-				GPIO_ResetBits(GPIO_DIR_Z_PORT, GPIO_DIR_Z_PIN);
+                HAL_GPIO_WritePin(GPIO_DIR_Z_PORT, GPIO_DIR_Z_PIN, GPIO_PIN_RESET);
 			}
 
 			// With AMASS enabled, adjust Bresenham axis increment counters according to AMASS level.
@@ -528,7 +528,7 @@ Stepper_PortResetISR(void) {
         HAL_GPIO_WritePin(GPIO_STEP_X_PORT, GPIO_STEP_X_PIN, GPIO_PIN_SET);
 	}
 	else {
-        HAL_GPIO_WritePin(GPIO_STEP_X_PORT, GPIO_STEP_X_PIN), GPIO_PIN_RESET;
+        HAL_GPIO_WritePin(GPIO_STEP_X_PORT, GPIO_STEP_X_PIN, GPIO_PIN_RESET);
 	}
 
 	// Y
@@ -591,14 +591,14 @@ Stepper_Reset(void) {
 	// Initialize step and direction port pins.
 	// TODO: Stepper invert mask
 	// Reset Step Pins
-	GPIO_ResetBits(GPIO_STEP_X_PORT, GPIO_STEP_X_PIN);
-	GPIO_ResetBits(GPIO_STEP_Y_PORT, GPIO_STEP_Y_PIN);
-	GPIO_ResetBits(GPIO_STEP_Z_PORT, GPIO_STEP_Z_PIN);
+    HAL_GPIO_WritePin(GPIO_STEP_X_PORT, GPIO_STEP_X_PIN, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIO_STEP_Y_PORT, GPIO_STEP_Y_PIN, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIO_STEP_Z_PORT, GPIO_STEP_Z_PIN, GPIO_PIN_RESET);
 
 	// Reset Direction Pins
-	GPIO_ResetBits(GPIO_DIR_X_PORT, GPIO_DIR_X_PIN);
-	GPIO_ResetBits(GPIO_DIR_Y_PORT, GPIO_DIR_Y_PIN);
-	GPIO_ResetBits(GPIO_DIR_Z_PORT, GPIO_DIR_Z_PIN);
+    HAL_GPIO_WritePin(GPIO_DIR_X_PORT, GPIO_DIR_X_PIN, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIO_DIR_Y_PORT, GPIO_DIR_Y_PIN, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIO_DIR_Z_PORT, GPIO_DIR_Z_PIN, GPIO_PIN_RESET);
 }
 
 

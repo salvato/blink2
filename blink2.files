@@ -857,13 +857,17 @@ Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usart.c
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_utils.c
 Inc/GPIO.h
+Inc/TIM.h
 Inc/main.h
+Inc/misc.h
 Inc/stm32f4xx_hal_conf.h
 Inc/stm32f4xx_it.h
 Makefile
 Src/GPIO.c
 Src/System32.c
+Src/TIM.c
 Src/main.c
+Src/misc.c
 Src/stm32f4xx_hal_msp.c
 Src/stm32f4xx_it.c
 Src/system_stm32f4xx.c
