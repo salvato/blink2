@@ -29,24 +29,25 @@
  **/
 void
 TIM1_Init(void) {
-    TIM_HandleTypeDef TIM_Handle;
-    TIM_OC_InitTypeDef TIM_OCInitStructure;
+    TIM_HandleTypeDef TIM_Handle = {0};
+    TIM_OC_InitTypeDef TIM_OCInitStructure = {0};
 
 	/* TIM1 clock enable */
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);
 
 	/* Time base configuration */
-    TIM_Handle.Init.Period = 100-1;		// ~10 KHz
-    TIM_Handle.Init.Prescaler = 48;		// 2 MHz
-    TIM_Handle.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-    TIM_Handle.Init.CounterMode = TIM_COUNTERMODE_UP;
-    TIM_Handle.Init.RepetitionCounter = 0;
     TIM_Handle.Instance = TIM1;
+    TIM_Handle.Init.Prescaler = 48;		// 2 MHz
+    TIM_Handle.Init.CounterMode = TIM_COUNTERMODE_UP;
+    TIM_Handle.Init.Period = 100-1;		// ~10 KHz
+    TIM_Handle.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+    TIM_Handle.Init.RepetitionCounter = 0;
+    TIM_Handle->Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
 
     HAL_TIM_Base_Init(&TIM_Handle);
 
 	/* PWM1 Mode configuration: Channel1 */
-    TIM_OCInitStructure.OCMode = TIM_OCMode_PWM2;
+    TIM_Handle.Init.OCMode = TIM_OCMode_PWM2;
     TIM_OCInitStructure.OutputState = TIM_OutputState_Disable;
     TIM_OCInitStructure.OutputNState = TIM_OutputNState_Enable;
     TIM_OCInitStructure.Pulse = 0;
