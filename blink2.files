@@ -857,6 +857,7 @@ Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usart.c
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c
 Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_utils.c
 Inc/GPIO.h
+Inc/System32.h
 Inc/TIM.h
 Inc/main.h
 Inc/misc.h
@@ -871,6 +872,8 @@ Src/misc.c
 Src/stm32f4xx_hal_msp.c
 Src/stm32f4xx_it.c
 Src/system_stm32f4xx.c
+System32.c
+System32.h
 grbl/inc/Config.h
 grbl/inc/GCode.h
 grbl/inc/Limits.h
@@ -896,3 +899,4 @@ grbl/src/SpindleControl.c
 grbl/src/Stepper.c
 grbl/src/System.c
 grbl/src/util.c
+startup_stm32f411xe.s
